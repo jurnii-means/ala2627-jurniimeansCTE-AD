@@ -75,3 +75,16 @@ footer {
   body { padding-top: 2rem; }
   h1   { font-size: 1.8rem; }
 }
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.cards {
+  display: flex;
+  gap: 8px;
+}
+
