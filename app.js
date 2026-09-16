@@ -52,6 +52,18 @@ const specialDrops = [
   { name: "* Sport Gloves | Vice", rarity: "Rare Special Item", color: "gold" }
 ];
 
+const spinnerPool = [
+  ...drops,
+  ...specialDrops,
+  { name: "Glock-18 | Vogue", rarity: "Classified", color: "pink" },
+  { name: "MAC-10 | Disco Tech", rarity: "Restricted", color: "purple" },
+  { name: "SG 553 | Dragon Tech", rarity: "Mil-Spec", color: "blue" },
+  { name: "USP-S | Printstream", rarity: "Covert", color: "red" },
+  { name: "FAMAS | Meow 36", rarity: "Mil-Spec", color: "blue" },
+  { name: "AWP | Neo-Noir", rarity: "Classified", color: "pink" },
+  { name: "Galil AR | Chromatic Aberration", rarity: "Restricted", color: "purple" }
+];
+
 function renderCases() {
   caseCount.textContent = `${cases.length} CASES`;
   caseList.innerHTML = cases.map(([caseItem, price]) => `<button class="case-card${caseItem === selectedCase ? " is-selected" : ""}" type="button" data-case="${caseItem}"><span class="case-card-icon">*</span><span class="case-card-name">${caseItem}</span><strong>${formatPrice(price)}</strong></button>`).join("");
@@ -94,6 +106,30 @@ function chooseDrop() {
   return drops[0];
 }
 
+function buildRoulette(winningDrop) {
+  const winningIndex = 42;
+  const cardWidth = 132;
+  const cardGap = 8;
+  const trackPadding = 18;
+  const cards = [];
+
+  for (let index = 0; index < 48; index += 1) {
+    const item = index === winningIndex
+      ? winningDrop
+      : spinnerPool[Math.floor(Math.random() * spinnerPool.length)];
+    const [weapon, skin] = item.name.split(" | ");
+    const card = document.createElement("span");
+    card.className = `roulette-card ${item.color}`;
+    card.innerHTML = `${weapon}<br><b>${skin || "Special Item"}</b>`;
+    cards.push(card);
+  }
+
+  rouletteTrack.replaceChildren(...cards);
+  const pointerPosition = caseVisual.clientWidth / 2;
+  const winningCardPosition = trackPadding + winningIndex * (cardWidth + cardGap) + cardWidth / 2;
+  rouletteTrack.style.setProperty("--roll-distance", `${pointerPosition - winningCardPosition}px`);
+}
+
 function addDrop(drop) {
   inventory.unshift(drop);
   inventory = inventory.slice(0, 5);
@@ -112,11 +148,14 @@ function addDrop(drop) {
 openButton.addEventListener("click", () => {
   const price = getCase()[1];
   if (opening || balance < price) return;
+  const drop = chooseDrop();
   opening = true;
   balance -= price;
   updateWallet();
+  caseVisual.classList.remove("is-opening");
+  void caseVisual.offsetWidth;
+  buildRoulette(drop);
   caseVisual.classList.add("is-opening");
-  rouletteTrack.style.setProperty("--roll-distance", `-${Math.floor(Math.random() * 240 + 420)}px`);
   statusMessage.textContent = "Unlocking the case...";
   window.setTimeout(() => {
     if (opening) statusMessage.textContent = "Searching the collection...";
@@ -125,7 +164,6 @@ openButton.addEventListener("click", () => {
     if (opening) statusMessage.textContent = "The reel is slowing down...";
   }, 5200);
   window.setTimeout(() => {
-    const drop = chooseDrop();
     caseVisual.classList.remove("is-opening");
     opening = false;
     addDrop(drop);
@@ -143,3 +181,4 @@ earnButton.addEventListener("click", () => {
 updateWallet();
 renderCases();
 updateCaseDetails();
+buildRoulette(drops[0]);
