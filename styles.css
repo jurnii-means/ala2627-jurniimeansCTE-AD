@@ -863,7 +863,7 @@ footer {
   justify-content: space-between;
   padding: 16px;
   border: 2px solid #6a7075;
-  background: linear-gradient(145deg, #55595c 0 8%, #292d31 8% 78%, #1d2024 78%);
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .05) 0 2px, transparent 2px 15px), linear-gradient(145deg, #3e4245 0 8%, #202428 8% 78%, #15181b 78%);
   backface-visibility: hidden;
 }
 
@@ -876,10 +876,10 @@ footer {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 26px;
-  width: 13px;
-  background: linear-gradient(90deg, #753719, #d47a3c 50%, #8c431f);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, .3);
+  left: 12px;
+  width: 8px;
+  background: repeating-linear-gradient(0deg, #0e1113 0 4px, #686d70 4px 6px);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .45);
 }
 
 .case-front::after {
@@ -897,6 +897,56 @@ footer {
 .case-back {
   inset: 0;
   transform: translateZ(20px);
+}
+
+.case-badge {
+  position: absolute;
+  z-index: 2;
+  top: 28px;
+  left: 47px;
+  width: 48px;
+  height: 54px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  padding-bottom: 6px;
+  color: #f1edce;
+  background: #bc8c3b;
+  clip-path: polygon(50% 0, 100% 86%, 92% 100%, 8% 100%, 0 86%);
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+.badge-mark {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin-bottom: 3px;
+  color: #d5d8d3;
+  background: #263038;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  font-size: 13px;
+}
+
+.case-bolt {
+  display: none;
+}
+
+.case-title {
+  position: absolute;
+  z-index: 2;
+  right: 12px;
+  bottom: 17px;
+  color: #c9cccb;
+  font-size: 8px;
+  letter-spacing: .08em;
+}
+
+.case-title b {
+  color: #e0e1dc;
 }
 
 .case-back {
@@ -922,7 +972,19 @@ footer {
   right: -20px;
   transform: rotateY(90deg);
   transform-origin: left;
+  overflow: hidden;
   background: #202428;
+}
+
+.case-right::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: -10px;
+  width: 72px;
+  height: 180px;
+  background: repeating-linear-gradient(0deg, rgba(32, 19, 10, .28) 0 3px, transparent 3px 13px), linear-gradient(135deg, #d58a3e, #915222 72%);
+  transform: rotate(17deg);
 }
 
 .case-top,
