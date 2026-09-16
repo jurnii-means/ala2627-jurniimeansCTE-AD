@@ -1008,6 +1008,36 @@ footer {
   background: #14171a;
 }
 
+.case-3d {
+  animation: case-showcase 14s linear infinite;
+}
+
+.is-opening .case-3d {
+  animation: case-spin 7.6s cubic-bezier(.2, .7, .3, 1) both;
+}
+
+@keyframes case-showcase {
+  0% {
+    transform: rotateX(-12deg) rotateY(-25deg);
+  }
+
+  25% {
+    transform: rotateX(-5deg) rotateY(65deg);
+  }
+
+  50% {
+    transform: rotateX(5deg) rotateY(155deg);
+  }
+
+  75% {
+    transform: rotateX(-3deg) rotateY(245deg);
+  }
+
+  100% {
+    transform: rotateX(-12deg) rotateY(335deg);
+  }
+}
+
 .is-opening .case-art {
   display: grid;
   animation: none;
