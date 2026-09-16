@@ -41,15 +41,23 @@ function formatPrice(price) {
 }
 
 const drops = [
-  { name: "MP9 | Capillary", rarity: "Mil-Spec", color: "blue", chance: 79.92 },
-  { name: "P250 | Verdigris", rarity: "Restricted", color: "purple", chance: 15.98 },
-  { name: "M4A4 | Tooth Fairy", rarity: "Classified", color: "pink", chance: 3.2 },
-  { name: "AK-47 | Legion of Anubis", rarity: "Covert", color: "red", chance: .64 }
+  { name: "MP9 | Capillary", rarity: "Mil-Spec", color: "blue", chance: 79.92, baseValue: 1.25 },
+  { name: "P250 | Verdigris", rarity: "Restricted", color: "purple", chance: 15.98, baseValue: 2.4 },
+  { name: "M4A4 | Tooth Fairy", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 10 },
+  { name: "AK-47 | Legion of Anubis", rarity: "Covert", color: "red", chance: .64, baseValue: 85 }
 ];
 
 const specialDrops = [
-  { name: "* Butterfly Knife | Fade", rarity: "Rare Special Item", color: "gold" },
-  { name: "* Sport Gloves | Vice", rarity: "Rare Special Item", color: "gold" }
+  { name: "* Butterfly Knife | Fade", rarity: "Rare Special Item", color: "gold", baseValue: 320 },
+  { name: "* Sport Gloves | Vice", rarity: "Rare Special Item", color: "gold", baseValue: 180 }
+];
+
+const conditions = [
+  { name: "Factory New", chance: 2, min: 0, max: .07, multiplier: 1.4 },
+  { name: "Minimal Wear", chance: 13, min: .07, max: .15, multiplier: 1.05 },
+  { name: "Field-Tested", chance: 40, min: .15, max: .38, multiplier: .75 },
+  { name: "Well-Worn", chance: 25, min: .38, max: .45, multiplier: .55 },
+  { name: "Battle-Scarred", chance: 20, min: .45, max: 1, multiplier: .4 }
 ];
 
 const spinnerPool = [
@@ -106,6 +114,27 @@ function chooseDrop() {
   return drops[0];
 }
 
+function createItem(drop) {
+  const roll = Math.random() * 100;
+  let total = 0;
+  let condition = conditions[conditions.length - 1];
+  for (const option of conditions) {
+    total += option.chance;
+    if (roll <= total) {
+      condition = option;
+      break;
+    }
+  }
+  const wear = condition.min + Math.random() * (condition.max - condition.min);
+  const value = drop.baseValue * condition.multiplier;
+  return {
+    ...drop,
+    condition: condition.name,
+    wear: wear.toFixed(4),
+    value: value.toFixed(2)
+  };
+}
+
 function buildRoulette(winningDrop) {
   const winningIndex = 42;
   const cardWidth = 132;
@@ -139,7 +168,7 @@ function addDrop(drop) {
     const element = document.createElement("div");
     element.className = "inventory-item";
     const itemLabel = item.name.replace("* ", "").split(" |")[0];
-    element.innerHTML = `<span class="item-swatch ${item.color}">${itemLabel.slice(0, 2)}</span><span class="item-info"><span class="item-name">${item.name}</span><span class="item-rarity">${item.rarity}</span></span>`;
+    element.innerHTML = `<span class="item-swatch ${item.color}">${itemLabel.slice(0, 2)}</span><span class="item-info"><span class="item-name">${item.name}</span><span class="item-rarity">${item.rarity}</span><span class="item-details">${item.condition} <b>·</b> Float ${item.wear}</span></span><strong class="item-value">$${item.value}</strong>`;
     inventoryList.append(element);
   });
   itemCount.textContent = `${inventory.length} ${inventory.length === 1 ? "ITEM" : "ITEMS"}`;
@@ -166,8 +195,9 @@ openButton.addEventListener("click", () => {
   window.setTimeout(() => {
     caseVisual.classList.remove("is-opening");
     opening = false;
-    addDrop(drop);
-    statusMessage.innerHTML = `You pulled <strong class="${drop.color}">${drop.name}</strong> · ${drop.rarity}`;
+    const item = createItem(drop);
+    addDrop(item);
+    statusMessage.innerHTML = `You pulled <strong class="${item.color}">${item.name}</strong> · ${item.condition}`;
     updateWallet();
   }, 8000);
 });

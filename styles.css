@@ -580,6 +580,27 @@ button {
   margin-top: 2px;
 }
 
+.item-details {
+  display: block;
+  margin-top: 4px;
+  color: #b8c0c7;
+  font-size: 9px;
+  letter-spacing: .02em;
+}
+
+.item-details b {
+  color: #68727c;
+  font-weight: 400;
+  padding: 0 3px;
+}
+
+.item-value {
+  color: #e2b16d;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .odds-block {
   padding-top: 1px;
 }
