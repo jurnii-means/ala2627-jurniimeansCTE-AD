@@ -11,6 +11,8 @@ const caseList = document.querySelector("#caseList");
 const caseName = document.querySelector("#caseName");
 const caseStamp = document.querySelector("#caseStamp");
 const caseCount = document.querySelector("#caseCount");
+const casePrice = document.querySelector("#casePrice");
+const buttonPrice = document.querySelector("#buttonPrice");
 
 let balance = 1000;
 let opening = false;
@@ -18,17 +20,25 @@ let inventory = [];
 let selectedCase = "Fracture Case";
 
 const cases = [
-  "CS:GO Weapon Case", "CS:GO Weapon Case 2", "CS:GO Weapon Case 3",
-  "eSports 2013 Case", "eSports 2013 Winter Case", "eSports 2014 Summer Case",
-  "Operation Bravo Case", "Operation Phoenix Weapon Case", "Operation Winter Offensive Weapon Case",
-  "Huntsman Weapon Case", "Operation Breakout Weapon Case", "Operation Vanguard Weapon Case",
-  "Chroma Case", "Chroma 2 Case", "Chroma 3 Case", "Falchion Case", "Shadow Case",
-  "Revolver Case", "Operation Wildfire Case", "Gamma Case", "Gamma 2 Case", "Glove Case",
-  "Spectrum Case", "Spectrum 2 Case", "Horizon Case", "Danger Zone Case", "Prisma Case",
-  "Prisma 2 Case", "CS20 Case", "Shattered Web Case", "Operation Broken Fang Case",
-  "Fracture Case", "Snakebite Case", "Operation Riptide Case", "Dreams & Nightmares Case",
-  "Recoil Case", "Revolution Case", "Kilowatt Case", "Gallery Case", "Fever Case"
+  ["CS:GO Weapon Case", 70], ["CS:GO Weapon Case 2", 15], ["CS:GO Weapon Case 3", 10],
+  ["eSports 2013 Case", 50], ["eSports 2013 Winter Case", 25], ["eSports 2014 Summer Case", 15],
+  ["Operation Bravo Case", 50], ["Operation Phoenix Weapon Case", 3], ["Operation Winter Offensive Weapon Case", 15],
+  ["Huntsman Weapon Case", 8], ["Operation Breakout Weapon Case", 12], ["Operation Vanguard Weapon Case", 1.5],
+  ["Chroma Case", 1.5], ["Chroma 2 Case", 2], ["Chroma 3 Case", 2], ["Falchion Case", 1.2], ["Shadow Case", 1.5],
+  ["Revolver Case", 2], ["Operation Wildfire Case", 2], ["Gamma Case", 3], ["Gamma 2 Case", 2], ["Glove Case", 8],
+  ["Spectrum Case", 3], ["Spectrum 2 Case", 2], ["Horizon Case", 1], ["Danger Zone Case", 1], ["Prisma Case", .8],
+  ["Prisma 2 Case", .8], ["CS20 Case", 1.5], ["Shattered Web Case", 3.5], ["Operation Broken Fang Case", 4],
+  ["Fracture Case", .7], ["Snakebite Case", .5], ["Operation Riptide Case", 10], ["Dreams & Nightmares Case", 1.5],
+  ["Recoil Case", .3], ["Revolution Case", .4], ["Kilowatt Case", .2], ["Gallery Case", .3], ["Fever Case", .2]
 ];
+
+function getCase(name = selectedCase) {
+  return cases.find(([caseName]) => caseName === name);
+}
+
+function formatPrice(price) {
+  return `$${price.toFixed(2)}`;
+}
 
 const drops = [
   { name: "MP9 | Capillary", rarity: "Mil-Spec", color: "blue", chance: 79.92 },
@@ -40,13 +50,21 @@ const drops = [
 
 function renderCases() {
   caseCount.textContent = `${cases.length} CASES`;
-  caseList.innerHTML = cases.map((caseItem) => `<button class="case-card${caseItem === selectedCase ? " is-selected" : ""}" type="button" data-case="${caseItem}"><span class="case-card-icon">*</span><span>${caseItem}</span></button>`).join("");
+  caseList.innerHTML = cases.map(([caseItem, price]) => `<button class="case-card${caseItem === selectedCase ? " is-selected" : ""}" type="button" data-case="${caseItem}"><span class="case-card-icon">*</span><span class="case-card-name">${caseItem}</span><strong>${formatPrice(price)}</strong></button>`).join("");
+}
+
+function updateCaseDetails() {
+  const [, price] = getCase();
+  casePrice.textContent = price.toFixed(2);
+  buttonPrice.textContent = price.toFixed(2);
+  openButton.dataset.cost = price;
 }
 
 caseList.addEventListener("click", (event) => {
   const selectedButton = event.target.closest("[data-case]");
   if (!selectedButton || opening) return;
   selectedCase = selectedButton.dataset.case;
+  updateCaseDetails();
   caseName.textContent = selectedCase;
   caseStamp.textContent = `CONTAINER ${cases.indexOf(selectedCase) + 1}`.padStart(13, "0");
   caseList.querySelector(".is-selected")?.classList.remove("is-selected");
@@ -56,7 +74,7 @@ caseList.addEventListener("click", (event) => {
 
 function updateWallet() {
   balanceElement.textContent = balance.toLocaleString();
-  openButton.disabled = opening || balance < 250;
+  openButton.disabled = opening || balance < getCase()[1];
 }
 
 function chooseDrop() {
@@ -84,13 +102,20 @@ function addDrop(drop) {
 }
 
 openButton.addEventListener("click", () => {
-  if (opening || balance < 250) return;
+  const price = getCase()[1];
+  if (opening || balance < price) return;
   opening = true;
-  balance -= 250;
+  balance -= price;
   updateWallet();
   caseVisual.classList.add("is-opening");
   rouletteTrack.style.setProperty("--roll-distance", `-${Math.floor(Math.random() * 240 + 420)}px`);
   statusMessage.textContent = "Unlocking the case...";
+  window.setTimeout(() => {
+    if (opening) statusMessage.textContent = "Searching the collection...";
+  }, 1200);
+  window.setTimeout(() => {
+    if (opening) statusMessage.textContent = "The reel is slowing down...";
+  }, 3500);
   window.setTimeout(() => {
     const drop = chooseDrop();
     caseVisual.classList.remove("is-opening");
@@ -98,7 +123,7 @@ openButton.addEventListener("click", () => {
     addDrop(drop);
     statusMessage.innerHTML = `You pulled <strong class="${drop.color}">${drop.name}</strong> · ${drop.rarity}`;
     updateWallet();
-  }, 1100);
+  }, 5200);
 });
 
 earnButton.addEventListener("click", () => {
@@ -109,3 +134,4 @@ earnButton.addEventListener("click", () => {
 
 updateWallet();
 renderCases();
+updateCaseDetails();

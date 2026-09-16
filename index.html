@@ -56,16 +56,25 @@
               <p class="section-kicker">CASE CONTENTS</p>
               <h2 id="caseName">Fracture Case</h2>
             </div>
-            <span class="case-cost"><span class="coin small">C</span> 250</span>
+            <span class="case-cost"><span class="coin small">$</span><span id="casePrice">0.70</span></span>
           </div>
 
           <div class="case-visual" id="caseVisual">
             <div class="scanline"></div>
             <div class="case-glow"></div>
             <div class="case-art">
-              <span class="case-bolt">*</span>
-              <span class="case-title">FRACTURE<br><b>CASE</b></span>
-              <span class="case-stamp" id="caseStamp">CONTAINER 01</span>
+              <div class="case-3d" aria-label="Three-dimensional case model">
+                <div class="case-face case-front">
+                  <span class="case-bolt">*</span>
+                  <span class="case-title">FRACTURE<br><b>CASE</b></span>
+                  <span class="case-stamp" id="caseStamp">CONTAINER 01</span>
+                </div>
+                <div class="case-face case-back"></div>
+                <div class="case-face case-left"></div>
+                <div class="case-face case-right"></div>
+                <div class="case-face case-top"></div>
+                <div class="case-face case-bottom"></div>
+              </div>
             </div>
             <div class="roulette-window" aria-label="Rolling case contents">
               <div class="roulette-track">
@@ -85,7 +94,7 @@
           <div class="action-row">
             <button class="open-button" id="openButton" type="button">
               <span class="button-label">OPEN CASE</span>
-              <span class="button-cost"><span class="coin tiny">C</span> 250</span>
+              <span class="button-cost"><span class="coin tiny">$</span><span id="buttonPrice">0.70</span></span>
             </button>
             <button class="icon-button" id="earnButton" type="button" title="Earn 100 credits"
               aria-label="Earn 100 credits">+</button>
