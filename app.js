@@ -6,17 +6,18 @@ const statusMessage = document.querySelector("#statusMessage");
 const inventoryList = document.querySelector("#inventoryList");
 const emptyState = document.querySelector("#emptyState");
 const itemCount = document.querySelector("#itemCount");
+const rouletteTrack = document.querySelector(".roulette-track");
 
 let balance = 1000;
 let opening = false;
 let inventory = [];
 
 const drops = [
-  { name: "Carbon Fiber", rarity: "Mil-Spec", color: "blue", chance: 79.92 },
-  { name: "Static Bloom", rarity: "Restricted", color: "purple", chance: 15.98 },
-  { name: "Afterimage", rarity: "Classified", color: "pink", chance: 3.2 },
-  { name: "Redline Protocol", rarity: "Covert", color: "red", chance: .64 },
-  { name: "Neon Fang", rarity: "Special Item", color: "gold", chance: .26 }
+  { name: "MP9 | Capillary", rarity: "Mil-Spec", color: "blue", chance: 79.92 },
+  { name: "P250 | Verdigris", rarity: "Restricted", color: "purple", chance: 15.98 },
+  { name: "M4A4 | Tooth Fairy", rarity: "Classified", color: "pink", chance: 3.2 },
+  { name: "AK-47 | Legion of Anubis", rarity: "Covert", color: "red", chance: .64 },
+  { name: "* Karambit | Autotronic", rarity: "Special Item", color: "gold", chance: .26 }
 ];
 
 function updateWallet() {
@@ -42,7 +43,7 @@ function addDrop(drop) {
   inventory.forEach((item) => {
     const element = document.createElement("div");
     element.className = "inventory-item";
-    element.innerHTML = `<span class="item-swatch ${item.color}">${item.name.charAt(0)}</span><span class="item-info"><span class="item-name">${item.name}</span><span class="item-rarity">${item.rarity}</span></span>`;
+    element.innerHTML = `<span class="item-swatch ${item.color}">${item.name.split(" |")[0].slice(0, 2)}</span><span class="item-info"><span class="item-name">${item.name}</span><span class="item-rarity">${item.rarity}</span></span>`;
     inventoryList.append(element);
   });
   itemCount.textContent = `${inventory.length} ${inventory.length === 1 ? "ITEM" : "ITEMS"}`;
@@ -54,6 +55,7 @@ openButton.addEventListener("click", () => {
   balance -= 250;
   updateWallet();
   caseVisual.classList.add("is-opening");
+  rouletteTrack.style.setProperty("--roll-distance", `-${Math.floor(Math.random() * 240 + 420)}px`);
   statusMessage.textContent = "Unlocking the case...";
   window.setTimeout(() => {
     const drop = chooseDrop();

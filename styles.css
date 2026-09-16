@@ -2,15 +2,15 @@
   --ink: #f2f4f7;
   --muted: #89919c;
   --dim: #535b67;
-  --accent: #d6ff3f;
-  --paper: #101216;
-  --panel: #171a20;
-  --line: #292e37;
-  --blue: #5aa8ff;
-  --purple: #9e65e8;
-  --pink: #e75cc1;
-  --red: #e7616b;
-  --gold: #f1b84b;
+  --accent: #66b8e8;
+  --paper: #11151b;
+  --panel: #1a2028;
+  --line: #303943;
+  --blue: #4b9ed8;
+  --purple: #8847bd;
+  --pink: #c64ad4;
+  --red: #cf4b5c;
+  --gold: #e8ad46;
 }
 
 *,
@@ -22,14 +22,14 @@
 body {
   margin: 0;
   min-width: 320px;
-  background: #0c0e11;
+  background: #0b0f14;
   color: var(--ink);
   font: 15px/1.5 "Trebuchet MS", "Segoe UI", sans-serif;
 }
 
 .app-shell {
   min-height: 100vh;
-  background: radial-gradient(circle at 18% 8%, #1d2422 0, #101216 32rem, #0c0e11 70%);
+  background: radial-gradient(circle at 18% 8%, #17232d 0, #11151b 32rem, #0b0f14 70%);
 }
 
 .topbar {
@@ -57,7 +57,7 @@ body {
   place-items: center;
   width: 28px;
   height: 28px;
-  color: #101216;
+  color: #101820;
   background: var(--accent);
   font-style: italic;
   transform: skew(-10deg);
@@ -201,7 +201,7 @@ h2 {
   display: grid;
   place-items: center;
   margin: 2.7rem 0 1.8rem;
-  background: linear-gradient(135deg, #1a2328, #11161b 60%, #252018);
+  background: linear-gradient(135deg, #202c38, #111820 60%, #202a32);
   border: 1px solid #374149;
 }
 
@@ -224,7 +224,7 @@ h2 {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background: rgba(214, 255, 63, .12);
+  background: rgba(102, 184, 232, .16);
   filter: blur(35px);
 }
 
@@ -235,9 +235,9 @@ h2 {
   padding: 1.5rem 1rem;
   position: relative;
   transform: rotate(-7deg);
-  border: 2px solid #91aa35;
-  box-shadow: 17px 17px 0 rgba(0, 0, 0, .22), 0 0 55px rgba(214, 255, 63, .15);
-  background: linear-gradient(145deg, #303e35, #131c1c 75%);
+  border: 2px solid #4d82a5;
+  box-shadow: 17px 17px 0 rgba(0, 0, 0, .22), 0 0 55px rgba(74, 158, 216, .15);
+  background: linear-gradient(145deg, #334454, #151d26 75%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -247,7 +247,7 @@ h2 {
   content: "";
   position: absolute;
   inset: 9px;
-  border: 1px solid rgba(214, 255, 63, .35);
+  border: 1px solid rgba(102, 184, 232, .35);
 }
 
 .case-bolt {
@@ -284,6 +284,70 @@ h2 {
   filter: blur(14px);
 }
 
+.roulette-window {
+  display: none;
+  z-index: 2;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: rgba(8, 12, 17, .58);
+}
+
+.roulette-track {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 100%;
+  width: max-content;
+  padding: 0 18px;
+}
+
+.roulette-card {
+  flex: 0 0 132px;
+  height: 155px;
+  padding: 18px 10px 10px;
+  border-top: 3px solid currentColor;
+  background: linear-gradient(160deg, #26313c, #13191f);
+  color: var(--blue);
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.roulette-card b {
+  display: block;
+  margin-top: 72px;
+  color: #dae4ec;
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.roulette-pointer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: #e4f3ff;
+  box-shadow: 0 0 12px #66b8e8;
+}
+
+.is-opening .case-art {
+  display: none;
+}
+
+.is-opening .roulette-window {
+  display: block;
+}
+
+.is-opening .roulette-track {
+  animation: roll 1.1s cubic-bezier(.12, .74, .28, 1) forwards;
+  transform: translateX(var(--roll-distance, -560px));
+}
+
 .action-row {
   display: flex;
   gap: 10px;
@@ -310,7 +374,7 @@ button {
 }
 
 .open-button:hover {
-  background: #e4ff83;
+  background: #9bdbff;
   transform: translateY(-2px);
 }
 
@@ -517,6 +581,16 @@ footer {
 
   75% {
     transform: translateX(7px) rotate(-9deg);
+  }
+}
+
+@keyframes roll {
+  from {
+    transform: translateX(20px);
+  }
+
+  to {
+    transform: translateX(var(--roll-distance, -560px));
   }
 }
 
