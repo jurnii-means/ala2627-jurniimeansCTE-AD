@@ -44,8 +44,12 @@ const drops = [
   { name: "MP9 | Capillary", rarity: "Mil-Spec", color: "blue", chance: 79.92 },
   { name: "P250 | Verdigris", rarity: "Restricted", color: "purple", chance: 15.98 },
   { name: "M4A4 | Tooth Fairy", rarity: "Classified", color: "pink", chance: 3.2 },
-  { name: "AK-47 | Legion of Anubis", rarity: "Covert", color: "red", chance: .64 },
-  { name: "* Karambit | Autotronic", rarity: "Special Item", color: "gold", chance: .26 }
+  { name: "AK-47 | Legion of Anubis", rarity: "Covert", color: "red", chance: .64 }
+];
+
+const specialDrops = [
+  { name: "* Butterfly Knife | Fade", rarity: "Rare Special Item", color: "gold" },
+  { name: "* Sport Gloves | Vice", rarity: "Rare Special Item", color: "gold" }
 ];
 
 function renderCases() {
@@ -78,6 +82,9 @@ function updateWallet() {
 }
 
 function chooseDrop() {
+  if (Math.random() < .1) {
+    return specialDrops[Math.floor(Math.random() * specialDrops.length)];
+  }
   const roll = Math.random() * 100;
   let total = 0;
   for (const drop of drops) {
@@ -95,7 +102,8 @@ function addDrop(drop) {
   inventory.forEach((item) => {
     const element = document.createElement("div");
     element.className = "inventory-item";
-    element.innerHTML = `<span class="item-swatch ${item.color}">${item.name.split(" |")[0].slice(0, 2)}</span><span class="item-info"><span class="item-name">${item.name}</span><span class="item-rarity">${item.rarity}</span></span>`;
+    const itemLabel = item.name.replace("* ", "").split(" |")[0];
+    element.innerHTML = `<span class="item-swatch ${item.color}">${itemLabel.slice(0, 2)}</span><span class="item-info"><span class="item-name">${item.name}</span><span class="item-rarity">${item.rarity}</span></span>`;
     inventoryList.append(element);
   });
   itemCount.textContent = `${inventory.length} ${inventory.length === 1 ? "ITEM" : "ITEMS"}`;
@@ -115,7 +123,7 @@ openButton.addEventListener("click", () => {
   }, 1200);
   window.setTimeout(() => {
     if (opening) statusMessage.textContent = "The reel is slowing down...";
-  }, 3500);
+  }, 5200);
   window.setTimeout(() => {
     const drop = chooseDrop();
     caseVisual.classList.remove("is-opening");
@@ -123,7 +131,7 @@ openButton.addEventListener("click", () => {
     addDrop(drop);
     statusMessage.innerHTML = `You pulled <strong class="${drop.color}">${drop.name}</strong> · ${drop.rarity}`;
     updateWallet();
-  }, 5200);
+  }, 8000);
 });
 
 earnButton.addEventListener("click", () => {

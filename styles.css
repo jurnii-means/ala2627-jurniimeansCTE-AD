@@ -432,7 +432,7 @@ h2 {
 }
 
 .is-opening .roulette-track {
-  animation: roll 1.1s cubic-bezier(.12, .74, .28, 1) forwards;
+  animation: roll 7.6s cubic-bezier(.08, .8, .22, 1) forwards;
   transform: translateX(var(--roll-distance, -560px));
 }
 
@@ -873,7 +873,7 @@ footer {
 }
 
 .is-opening .case-3d {
-  animation: case-spin 4.8s cubic-bezier(.2, .7, .3, 1) both;
+  animation: case-spin 7.6s cubic-bezier(.2, .7, .3, 1) both;
 }
 
 @keyframes case-spin {
