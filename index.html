@@ -6,62 +6,107 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- CHANGE THIS. It is the name on the browser tab, and it is what Google shows. -->
-  <title>Jurnii — csgo click </title>
+  <title>Vault Drop — case opener</title>
 
   <!-- CHANGE THIS TOO. One sentence. It is what shows under your link when someone shares it. -->
-  <meta name="description" content="One sentence about who you are and what you make.">
+  <meta name="description" content="Open cases, chase rare skins, and build your inventory.">
 
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Vault Drop home">
+        <span class="brand-mark">V</span>
+        <span>VAULT<span class="brand-accent">DROP</span></span>
+      </a>
+      <div class="player-wallet" aria-label="Player wallet">
+        <span class="wallet-label">BALANCE</span>
+        <strong id="balance">1,000</strong>
+        <span class="coin">C</span>
+      </div>
+    </header>
 
-  <header>
-    <!-- Exactly ONE h1 on the page. It is your name. -->
-    <h1>Jurnii - click click cases </h1>
-    <p class="tagline">csgo case opening</p>
-  </header>
+    <main>
+      <section class="hero-copy">
+        <div>
+          <p class="eyebrow">COMMUNITY CASE SIMULATOR / 001</p>
+          <h1>Open the vault.<br><em>Find the one.</em></h1>
+        </div>
+        <p class="hero-note">A clicker case opener built for the hunt. Stack credits, crack cases, and grow a collection
+          worth showing off.</p>
+      </section>
 
-  <main>
+      <section class="game-grid" aria-label="Case opener">
+        <div class="case-stage">
+          <div class="stage-header">
+            <div>
+              <p class="section-kicker">FEATURED DROP</p>
+              <h2>Neon District Case</h2>
+            </div>
+            <span class="case-cost"><span class="coin small">C</span> 250</span>
+          </div>
 
-    <section>
-      <h2>case opening</h2>
-      <ul>
-        <li><strong>click to buy cases</strong> more clicks, more cases </li>
-        <li><strong>spin cases</strong>see what you can get.</li>
-      </ul>
-    </section>
+          <div class="case-visual" id="caseVisual">
+            <div class="scanline"></div>
+            <div class="case-glow"></div>
+            <div class="case-art">
+              <span class="case-bolt">V</span>
+              <span class="case-title">NEON<br><b>DISTRICT</b></span>
+              <span class="case-stamp">SERIES 01</span>
+            </div>
+            <div class="case-shadow"></div>
+          </div>
 
-    <section>
-      <h2>learn to open cases</h2>
-      <p>
-        you will be opening cases in a game that has many. Name the actual tools. "I am learning how to make a clicking game and how data
-      saves"
-      </p>
-    </section>
+          <div class="action-row">
+            <button class="open-button" id="openButton" type="button">
+              <span class="button-label">OPEN CASE</span>
+              <span class="button-cost"><span class="coin tiny">C</span> 250</span>
+            </button>
+            <button class="icon-button" id="earnButton" type="button" title="Earn 100 credits"
+              aria-label="Earn 100 credits">+</button>
+          </div>
+          <p class="status-message" id="statusMessage" role="status">Ready when you are. Every case is a fresh roll.</p>
+        </div>
 
-    <section>
-      <h2>Get in touch</h2>
-      <!--
-        Put an email you will still control after graduation. If you only have the school one
-        today, that is fine — put it in, and change it later. That is what commits are for.
-      -->
-      <p><a href="mailto:you@example.com">you@example.com</a></p>
-    </section>
+        <aside class="collection-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">YOUR COLLECTION</p>
+              <h2>Inventory</h2>
+            </div>
+            <span class="item-count" id="itemCount">0 ITEMS</span>
+          </div>
+          <div class="inventory-list" id="inventoryList">
+            <div class="empty-state" id="emptyState">
+              <span class="empty-icon">+</span>
+              <p>Your inventory is empty.</p>
+              <small>Open a case to reveal your first drop.</small>
+            </div>
+          </div>
+          <div class="odds-block">
+            <div class="odds-heading"><span>DROP ODDS</span><span>PER CASE</span></div>
+            <div class="odds-row"><i class="dot blue"></i><span>Mil-Spec</span><b>79.92%</b></div>
+            <div class="odds-row"><i class="dot purple"></i><span>Restricted</span><b>15.98%</b></div>
+            <div class="odds-row"><i class="dot pink"></i><span>Classified</span><b>3.20%</b></div>
+            <div class="odds-row"><i class="dot red"></i><span>Covert</span><b>0.64%</b></div>
+            <div class="odds-row"><i class="dot gold"></i><span>Special Item</span><b>0.26%</b></div>
+          </div>
+        </aside>
+      </section>
+    </main>
 
-  </main>
-
-  <footer>
-    <p>Built by hand. Last updated <!-- change this when you change the page --> August 2026.</p>
-  </footer>
-
+    <footer><span>VAULT DROP</span><span>NO REAL VALUE · JUST THE RUSH</span><span>BUILD 01.26</span></footer>
+  </div>
+  <script src="app.js"></script>
 </body>
 
 </html>
 
 .cards {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: stretch;
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+align-items: stretch;
 }
