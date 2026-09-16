@@ -14,7 +14,7 @@ const caseCount = document.querySelector("#caseCount");
 const casePrice = document.querySelector("#casePrice");
 const buttonPrice = document.querySelector("#buttonPrice");
 
-let balance = 1000;
+let balance = 0;
 let opening = false;
 let inventory = [];
 let selectedCase = "Fracture Case";
@@ -149,7 +149,15 @@ function buildRoulette(winningDrop) {
     const [weapon, skin] = item.name.split(" | ");
     const card = document.createElement("span");
     card.className = `roulette-card ${item.color}`;
-    card.innerHTML = `${weapon}<br><b>${skin || "Special Item"}</b>`;
+    const preview = document.createElement("span");
+    preview.className = "skin-preview";
+    const previewLabel = document.createElement("span");
+    previewLabel.textContent = weapon.replace("* ", "");
+    preview.append(previewLabel);
+    const skinName = document.createElement("span");
+    skinName.className = "skin-card-name";
+    skinName.textContent = skin || "Special Item";
+    card.append(preview, skinName);
     cards.push(card);
   }
 
@@ -203,8 +211,8 @@ openButton.addEventListener("click", () => {
 });
 
 earnButton.addEventListener("click", () => {
-  balance += 100;
-  statusMessage.textContent = "+100 credits added to your balance.";
+  balance += 1;
+  statusMessage.textContent = "+$1 added to your balance.";
   updateWallet();
 });
 

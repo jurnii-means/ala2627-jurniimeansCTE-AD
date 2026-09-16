@@ -403,6 +403,64 @@ h2 {
   letter-spacing: .05em;
 }
 
+.skin-preview {
+  position: relative;
+  height: 82px;
+  display: grid;
+  place-items: end center;
+  margin: -8px -4px 8px;
+  overflow: hidden;
+  border-bottom: 1px solid currentColor;
+  background: radial-gradient(circle at 50% 42%, rgba(255, 255, 255, .14), transparent 62%);
+}
+
+.skin-preview::before {
+  content: "";
+  position: absolute;
+  top: 31px;
+  left: 23px;
+  width: 82px;
+  height: 13px;
+  border-radius: 2px 8px 2px 2px;
+  background: linear-gradient(90deg, #8d969c, #e2e7e8 45%, #555e64);
+  box-shadow: -17px 11px 0 -3px #7d878d, 51px -5px 0 -4px #b6c0c3;
+  transform: skew(-9deg);
+}
+
+.skin-preview::after {
+  content: "";
+  position: absolute;
+  top: 41px;
+  left: 55px;
+  width: 11px;
+  height: 24px;
+  border-radius: 0 0 3px 3px;
+  background: #313940;
+  transform: rotate(22deg);
+}
+
+.skin-preview>span {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 4px 3px;
+  color: rgba(235, 242, 246, .72);
+  background: rgba(10, 13, 16, .48);
+  font-size: 8px;
+  letter-spacing: .03em;
+  text-transform: none;
+}
+
+.skin-card-name {
+  display: block;
+  color: #dae4ec;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
 .roulette-card b {
   display: block;
   margin-top: 72px;
