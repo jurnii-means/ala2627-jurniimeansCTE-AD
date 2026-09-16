@@ -38,12 +38,23 @@
           your inventory.</p>
       </section>
 
+      <section class="case-library" aria-labelledby="case-library-title">
+        <div class="library-heading">
+          <div>
+            <p class="section-kicker">CASE LIBRARY</p>
+            <h2 id="case-library-title">Choose a case</h2>
+          </div>
+          <span id="caseCount">40 CASES</span>
+        </div>
+        <div class="case-list" id="caseList"></div>
+      </section>
+
       <section class="game-grid" aria-label="Case opener">
         <div class="case-stage">
           <div class="stage-header">
             <div>
               <p class="section-kicker">CASE CONTENTS</p>
-              <h2>Fracture Case</h2>
+              <h2 id="caseName">Fracture Case</h2>
             </div>
             <span class="case-cost"><span class="coin small">C</span> 250</span>
           </div>
@@ -54,7 +65,7 @@
             <div class="case-art">
               <span class="case-bolt">*</span>
               <span class="case-title">FRACTURE<br><b>CASE</b></span>
-              <span class="case-stamp">CONTAINER 01</span>
+              <span class="case-stamp" id="caseStamp">CONTAINER 01</span>
             </div>
             <div class="roulette-window" aria-label="Rolling case contents">
               <div class="roulette-track">
