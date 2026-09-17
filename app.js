@@ -185,7 +185,7 @@ function buildRoulette(winningDrop) {
     const skinName = document.createElement("span");
     skinName.className = "skin-card-name";
     skinName.textContent = item.itemType
-      ? `UNKNOWN ${item.itemType === "glove" ? "GLOVES" : "KNIFE"}`
+      ? item.itemType === "glove" ? "GLOVES" : "KNIFE"
       : skin || "Special Item";
     card.append(preview, skinName);
     cards.push(card);
