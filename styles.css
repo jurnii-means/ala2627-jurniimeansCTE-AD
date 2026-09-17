@@ -513,6 +513,129 @@ h2 {
   --weapon-finish: linear-gradient(90deg, #ef5a8a, #f7bb50 35%, #6c52df 64%, #30d4ce);
 }
 
+.ak47-legion-of-anubis .weapon-image,
+.ak47-ice-coaled .weapon-image,
+.ak47-slate .weapon-image,
+.m4a4-tooth-fairy .weapon-image,
+.m4a4-the-coalition .weapon-image,
+.m4a1-player-two .weapon-image,
+.m4a1-emphorosaur .weapon-image,
+.famas-meow-36 .weapon-image,
+.galil-chromatic-aberration .weapon-image,
+.sg553-dragon-tech .weapon-image {
+  width: 108px;
+}
+
+.ak47-legion-of-anubis .weapon-image::before,
+.ak47-ice-coaled .weapon-image::before,
+.ak47-slate .weapon-image::before,
+.m4a4-tooth-fairy .weapon-image::before,
+.m4a4-the-coalition .weapon-image::before,
+.m4a1-player-two .weapon-image::before,
+.m4a1-emphorosaur .weapon-image::before,
+.famas-meow-36 .weapon-image::before,
+.galil-chromatic-aberration .weapon-image::before,
+.sg553-dragon-tech .weapon-image::before {
+  left: 5px;
+  width: 96px;
+  height: 11px;
+  border-radius: 2px 9px 2px 2px;
+  box-shadow: -17px 11px 0 -2px #303940, 55px -5px 0 -4px #a7b0b2, inset 0 -3px rgba(0, 0, 0, .35);
+}
+
+.ak47-legion-of-anubis .weapon-image::after,
+.ak47-ice-coaled .weapon-image::after,
+.ak47-slate .weapon-image::after,
+.m4a4-tooth-fairy .weapon-image::after,
+.m4a4-the-coalition .weapon-image::after,
+.m4a1-player-two .weapon-image::after,
+.m4a1-emphorosaur .weapon-image::after,
+.famas-meow-36 .weapon-image::after,
+.galil-chromatic-aberration .weapon-image::after,
+.sg553-dragon-tech .weapon-image::after {
+  left: 48px;
+  height: 27px;
+  transform: rotate(19deg) skew(4deg);
+}
+
+.mp9-capillary .weapon-image,
+.mac10-disco-tech .weapon-image,
+.mp7-abyssal-apparition .weapon-image,
+.p90-freight .weapon-image {
+  width: 94px;
+}
+
+.mp9-capillary .weapon-image::before,
+.mac10-disco-tech .weapon-image::before,
+.mp7-abyssal-apparition .weapon-image::before,
+.p90-freight .weapon-image::before {
+  left: 12px;
+  width: 77px;
+  height: 15px;
+  border-radius: 4px 11px 4px 3px;
+  box-shadow: -15px 10px 0 -3px #303940, 47px -5px 0 -4px #98a3a8, inset 0 -3px rgba(0, 0, 0, .35);
+}
+
+.mp9-capillary .weapon-image::after,
+.mac10-disco-tech .weapon-image::after,
+.mp7-abyssal-apparition .weapon-image::after,
+.p90-freight .weapon-image::after {
+  left: 46px;
+  height: 27px;
+  transform: rotate(25deg);
+}
+
+.p250-verdigris .weapon-image,
+.glock-vogue .weapon-image,
+.usp-printstream .weapon-image,
+.fiveseven-fairy-tale .weapon-image,
+.usp-ticket-to-hell .weapon-image {
+  width: 78px;
+  height: 45px;
+}
+
+.p250-verdigris .weapon-image::before,
+.glock-vogue .weapon-image::before,
+.usp-printstream .weapon-image::before,
+.fiveseven-fairy-tale .weapon-image::before,
+.usp-ticket-to-hell .weapon-image::before {
+  top: 13px;
+  left: 8px;
+  width: 65px;
+  height: 10px;
+  border-radius: 2px 7px 2px 2px;
+  box-shadow: -8px 10px 0 -2px #303940, 42px 16px 0 -4px #252d32, inset 0 -3px rgba(0, 0, 0, .35);
+}
+
+.p250-verdigris .weapon-image::after,
+.glock-vogue .weapon-image::after,
+.usp-printstream .weapon-image::after,
+.fiveseven-fairy-tale .weapon-image::after,
+.usp-ticket-to-hell .weapon-image::after {
+  top: 22px;
+  left: 35px;
+  height: 22px;
+  transform: rotate(22deg);
+}
+
+.awp-neo-noir .weapon-image {
+  width: 122px;
+}
+
+.awp-neo-noir .weapon-image::before {
+  left: 1px;
+  width: 116px;
+  height: 9px;
+  border-radius: 1px 8px 1px 1px;
+  box-shadow: -12px 12px 0 -3px #303940, 73px 6px 0 -4px #1d252b, inset 0 -2px rgba(0, 0, 0, .4);
+}
+
+.awp-neo-noir .weapon-image::after {
+  left: 54px;
+  height: 29px;
+  transform: rotate(17deg);
+}
+
 .mystery-knife .weapon-image,
 .mystery-gloves .weapon-image {
   width: 48px;
