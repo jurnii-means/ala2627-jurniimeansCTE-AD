@@ -41,15 +41,15 @@ function formatPrice(price) {
 }
 
 const drops = [
-  { name: "MP9 | Capillary", rarity: "Mil-Spec", color: "blue", chance: 79.92, baseValue: 1.25 },
-  { name: "P250 | Verdigris", rarity: "Restricted", color: "purple", chance: 15.98, baseValue: 2.4 },
-  { name: "M4A4 | Tooth Fairy", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 10 },
-  { name: "AK-47 | Legion of Anubis", rarity: "Covert", color: "red", chance: .64, baseValue: 85 }
+  { name: "MP9 | Capillary", skinKey: "mp9-capillary", rarity: "Mil-Spec", color: "blue", chance: 79.92, baseValue: 1.25 },
+  { name: "P250 | Verdigris", skinKey: "p250-verdigris", rarity: "Restricted", color: "purple", chance: 15.98, baseValue: 2.4 },
+  { name: "M4A4 | Tooth Fairy", skinKey: "m4a4-tooth-fairy", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 10 },
+  { name: "AK-47 | Legion of Anubis", skinKey: "ak47-legion-of-anubis", rarity: "Covert", color: "red", chance: .64, baseValue: 85 }
 ];
 
 const specialDrops = [
-  { name: "* Butterfly Knife | Fade", rarity: "Rare Special Item", color: "gold", baseValue: 320 },
-  { name: "* Sport Gloves | Vice", rarity: "Rare Special Item", color: "gold", baseValue: 180 }
+  { name: "* Butterfly Knife | Fade", skinKey: "butterfly-fade", rarity: "Rare Special Item", color: "gold", baseValue: 320 },
+  { name: "* Sport Gloves | Vice", skinKey: "sport-gloves-vice", rarity: "Rare Special Item", color: "gold", baseValue: 180 }
 ];
 
 const conditions = [
@@ -63,13 +63,13 @@ const conditions = [
 const spinnerPool = [
   ...drops,
   ...specialDrops,
-  { name: "Glock-18 | Vogue", rarity: "Classified", color: "pink" },
-  { name: "MAC-10 | Disco Tech", rarity: "Restricted", color: "purple" },
-  { name: "SG 553 | Dragon Tech", rarity: "Mil-Spec", color: "blue" },
-  { name: "USP-S | Printstream", rarity: "Covert", color: "red" },
-  { name: "FAMAS | Meow 36", rarity: "Mil-Spec", color: "blue" },
-  { name: "AWP | Neo-Noir", rarity: "Classified", color: "pink" },
-  { name: "Galil AR | Chromatic Aberration", rarity: "Restricted", color: "purple" }
+  { name: "Glock-18 | Vogue", skinKey: "glock-vogue", rarity: "Classified", color: "pink" },
+  { name: "MAC-10 | Disco Tech", skinKey: "mac10-disco-tech", rarity: "Restricted", color: "purple" },
+  { name: "SG 553 | Dragon Tech", skinKey: "sg553-dragon-tech", rarity: "Mil-Spec", color: "blue" },
+  { name: "USP-S | Printstream", skinKey: "usp-printstream", rarity: "Covert", color: "red" },
+  { name: "FAMAS | Meow 36", skinKey: "famas-meow-36", rarity: "Mil-Spec", color: "blue" },
+  { name: "AWP | Neo-Noir", skinKey: "awp-neo-noir", rarity: "Classified", color: "pink" },
+  { name: "Galil AR | Chromatic Aberration", skinKey: "galil-chromatic-aberration", rarity: "Restricted", color: "purple" }
 ];
 
 function renderCases() {
@@ -150,10 +150,12 @@ function buildRoulette(winningDrop) {
     const card = document.createElement("span");
     card.className = `roulette-card ${item.color}`;
     const preview = document.createElement("span");
-    preview.className = "skin-preview";
+    preview.className = `skin-preview ${item.skinKey}`;
+    const weaponImage = document.createElement("span");
+    weaponImage.className = "weapon-image";
     const previewLabel = document.createElement("span");
     previewLabel.textContent = weapon.replace("* ", "");
-    preview.append(previewLabel);
+    preview.append(weaponImage, previewLabel);
     const skinName = document.createElement("span");
     skinName.className = "skin-card-name";
     skinName.textContent = skin || "Special Item";
@@ -176,7 +178,7 @@ function addDrop(drop) {
     const element = document.createElement("div");
     element.className = "inventory-item";
     const itemLabel = item.name.replace("* ", "").split(" |")[0];
-    element.innerHTML = `<span class="item-swatch ${item.color}">${itemLabel.slice(0, 2)}</span><span class="item-info"><span class="item-name">${item.name}</span><span class="item-rarity">${item.rarity}</span><span class="item-details">${item.condition} <b>·</b> Float ${item.wear}</span></span><strong class="item-value">$${item.value}</strong>`;
+    element.innerHTML = `<span class="item-swatch ${item.color} ${item.skinKey}"><span class="weapon-image"></span></span><span class="item-info"><span class="item-name">${item.name}</span><span class="item-rarity">${item.rarity}</span><span class="item-details">${item.condition} <b>·</b> Float ${item.wear}</span></span><strong class="item-value">$${item.value}</strong>`;
     inventoryList.append(element);
   });
   itemCount.textContent = `${inventory.length} ${inventory.length === 1 ? "ITEM" : "ITEMS"}`;

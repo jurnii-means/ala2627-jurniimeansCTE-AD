@@ -414,32 +414,42 @@ h2 {
   background: radial-gradient(circle at 50% 42%, rgba(255, 255, 255, .14), transparent 62%);
 }
 
-.skin-preview::before {
-  content: "";
-  position: absolute;
-  top: 31px;
-  left: 23px;
-  width: 82px;
-  height: 13px;
-  border-radius: 2px 8px 2px 2px;
-  background: linear-gradient(90deg, #8d969c, #e2e7e8 45%, #555e64);
-  box-shadow: -17px 11px 0 -3px #7d878d, 51px -5px 0 -4px #b6c0c3;
-  transform: skew(-9deg);
+.weapon-image {
+  position: relative;
+  display: block;
+  width: 92px;
+  height: 48px;
+  transform: rotate(-8deg);
+  filter: drop-shadow(0 4px 3px rgba(0, 0, 0, .55));
 }
 
-.skin-preview::after {
+.weapon-image::before {
   content: "";
   position: absolute;
-  top: 41px;
-  left: 55px;
-  width: 11px;
+  top: 12px;
+  left: 9px;
+  width: 80px;
+  height: 14px;
+  border-radius: 3px 9px 3px 3px;
+  background: var(--weapon-finish, linear-gradient(90deg, #48535c, #b9c1c2 48%, #252c31));
+  box-shadow: -14px 9px 0 -3px #313b41, 48px -5px 0 -4px #a7b0b2, inset 0 -3px rgba(0, 0, 0, .3);
+  transform: skew(-10deg);
+}
+
+.weapon-image::after {
+  content: "";
+  position: absolute;
+  top: 23px;
+  left: 41px;
+  width: 13px;
   height: 24px;
-  border-radius: 0 0 3px 3px;
-  background: #313940;
-  transform: rotate(22deg);
+  border-radius: 1px 2px 4px 4px;
+  background: #252d32;
+  box-shadow: 20px -14px 0 -5px #161b1f, -15px 0 0 -4px #677176;
+  transform: rotate(20deg) skew(4deg);
 }
 
-.skin-preview>span {
+.skin-preview>span:last-child {
   position: relative;
   z-index: 1;
   width: 100%;
@@ -449,6 +459,58 @@ h2 {
   font-size: 8px;
   letter-spacing: .03em;
   text-transform: none;
+}
+
+.mp9-capillary .weapon-image {
+  --weapon-finish: linear-gradient(90deg, #172b3a, #6ba1b4 38%, #1b2024 39%, #20252a 70%, #98b7bf);
+}
+
+.p250-verdigris .weapon-image {
+  --weapon-finish: linear-gradient(90deg, #315c52, #a2bb88 30%, #506b4b 62%, #192d2c);
+}
+
+.m4a4-tooth-fairy .weapon-image {
+  --weapon-finish: linear-gradient(90deg, #321c41, #cb5c9d 34%, #e3d8d1 47%, #4d2b68 72%, #11151a);
+}
+
+.ak47-legion-of-anubis .weapon-image {
+  --weapon-finish: linear-gradient(90deg, #12151c, #d16e39 22%, #e6ba54 39%, #542b32 61%, #0d1015);
+}
+
+.glock-vogue .weapon-image {
+  --weapon-finish: linear-gradient(90deg, #4f183e, #e56b92 35%, #f0c265 53%, #34204e 78%, #15151c);
+}
+
+.mac10-disco-tech .weapon-image {
+  --weapon-finish: linear-gradient(105deg, #2547a3, #d64da6 30%, #f1b745 52%, #2ac4bd 73%, #171b2b);
+}
+
+.sg553-dragon-tech .weapon-image {
+  --weapon-finish: linear-gradient(90deg, #1b3440, #3ca7b7 25%, #d26b3d 49%, #26374f 77%, #12181f);
+}
+
+.usp-printstream .weapon-image {
+  --weapon-finish: linear-gradient(90deg, #e9ece8, #ffffff 35%, #8c9696 54%, #1b2126 56%, #e1e5de);
+}
+
+.famas-meow-36 .weapon-image {
+  --weapon-finish: linear-gradient(90deg, #4e255d, #e3a5d0 32%, #4b9bc4 58%, #182c44 80%);
+}
+
+.awp-neo-noir .weapon-image {
+  --weapon-finish: linear-gradient(90deg, #111a2d, #e34e91 23%, #5e44ad 45%, #eeae5b 63%, #111621);
+}
+
+.galil-chromatic-aberration .weapon-image {
+  --weapon-finish: linear-gradient(90deg, #3b1959, #e05f91 30%, #52b6bb 54%, #543494 77%, #131923);
+}
+
+.butterfly-fade .weapon-image {
+  --weapon-finish: linear-gradient(90deg, #e76d55, #f8dc67 33%, #8ee0c0 63%, #5b72e7);
+}
+
+.sport-gloves-vice .weapon-image {
+  --weapon-finish: linear-gradient(90deg, #ef5a8a, #f7bb50 35%, #6c52df 64%, #30d4ce);
 }
 
 .skin-card-name {
@@ -615,7 +677,14 @@ button {
   place-items: center;
   border: 1px solid currentColor;
   background: #20262e;
-  font: italic 18px Georgia, serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.item-swatch .weapon-image {
+  width: 46px;
+  height: 28px;
+  transform: rotate(-8deg) scale(.78);
 }
 
 .item-info {
