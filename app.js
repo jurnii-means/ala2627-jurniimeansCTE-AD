@@ -1,5 +1,6 @@
 const balanceElement = document.querySelector("#balance");
 const openButton = document.querySelector("#openButton");
+const earnButton = document.querySelector("#earnButton");
 const caseVisual = document.querySelector("#caseVisual");
 const statusMessage = document.querySelector("#statusMessage");
 const inventoryList = document.querySelector("#inventoryList");
@@ -187,6 +188,12 @@ function renderInventory() {
   });
   itemCount.textContent = `${inventory.length} ${inventory.length === 1 ? "ITEM" : "ITEMS"}`;
 }
+
+earnButton.addEventListener("click", () => {
+  balance += 1;
+  statusMessage.textContent = "+$1 added to your balance.";
+  updateWallet();
+});
 
 inventoryList.addEventListener("click", (event) => {
   const sellButton = event.target.closest("[data-inventory-index]");
