@@ -85,9 +85,16 @@ const conditions = [
 
 function getCaseDropPool() {
   const caseIndex = cases.findIndex(([caseItem]) => caseItem === selectedCase);
-  const poolSize = 4;
-  const start = (caseIndex * 3) % dropCatalog.length;
-  return Array.from({ length: poolSize }, (_, offset) => dropCatalog[(start + offset) % dropCatalog.length]);
+  const seed = [...selectedCase].reduce((total, character) => total + character.charCodeAt(0), caseIndex * 17);
+  const selectedIndexes = [];
+  let cursor = seed % dropCatalog.length;
+
+  while (selectedIndexes.length < 4) {
+    if (!selectedIndexes.includes(cursor)) selectedIndexes.push(cursor);
+    cursor = (cursor + 5 + selectedIndexes.length * 3) % dropCatalog.length;
+  }
+
+  return selectedIndexes.map((index) => dropCatalog[index]);
 }
 
 function getSpinnerPool() {
