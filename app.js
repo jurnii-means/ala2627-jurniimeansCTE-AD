@@ -70,7 +70,26 @@ const extraDrops = [
   { name: "M4A4 | The Coalition", skinKey: "m4a4-the-coalition", rarity: "Covert", color: "red", chance: .64, baseValue: 55 },
   { name: "USP-S | Ticket to Hell", skinKey: "usp-ticket-to-hell", rarity: "Mil-Spec", color: "blue", chance: 79.92, baseValue: 1.3 },
   { name: "AK-47 | Slate", skinKey: "ak47-slate", rarity: "Restricted", color: "purple", chance: 15.98, baseValue: 3.7 },
-  { name: "M4A1-S | Emphorosaur-S", skinKey: "m4a1-emphorosaur", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 11 }
+  { name: "M4A1-S | Emphorosaur-S", skinKey: "m4a1-emphorosaur", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 11 },
+  { name: "M4A1-S | Hyper Beast", skinKey: "m4a1-hyper-beast", rarity: "Covert", color: "red", chance: .64, baseValue: 64 },
+  { name: "AK-47 | Neon Rider", skinKey: "ak47-neon-rider", rarity: "Covert", color: "red", chance: .64, baseValue: 58 },
+  { name: "AWP | Wildfire", skinKey: "awp-wildfire", rarity: "Covert", color: "red", chance: .64, baseValue: 70 },
+  { name: "Desert Eagle | Printstream", skinKey: "deagle-printstream", rarity: "Covert", color: "red", chance: .64, baseValue: 48 },
+  { name: "Glock-18 | Water Elemental", skinKey: "glock-water-elemental", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 12 },
+  { name: "USP-S | Cortex", skinKey: "usp-cortex", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 10 },
+  { name: "M4A4 | Hellfire", skinKey: "m4a4-hellfire", rarity: "Covert", color: "red", chance: .64, baseValue: 52 },
+  { name: "AK-47 | Redline", skinKey: "ak47-redline", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 18 },
+  { name: "AWP | Asiimov", skinKey: "awp-asiimov", rarity: "Covert", color: "red", chance: .64, baseValue: 76 },
+  { name: "M4A4 | Desolate Space", skinKey: "m4a4-desolate-space", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 13 },
+  { name: "P250 | See Ya Later", skinKey: "p250-see-ya-later", rarity: "Covert", color: "red", chance: .64, baseValue: 39 },
+  { name: "MAC-10 | Neon Rider", skinKey: "mac10-neon-rider", rarity: "Covert", color: "red", chance: .64, baseValue: 31 },
+  { name: "MP9 | Food Chain", skinKey: "mp9-food-chain", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 9 },
+  { name: "P90 | Asiimov", skinKey: "p90-asiimov", rarity: "Covert", color: "red", chance: .64, baseValue: 26 },
+  { name: "FAMAS | Commemoration", skinKey: "famas-commemoration", rarity: "Covert", color: "red", chance: .64, baseValue: 44 },
+  { name: "Galil AR | Eco", skinKey: "galil-eco", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 8 },
+  { name: "Five-SeveN | Hyper Beast", skinKey: "fiveseven-hyper-beast", rarity: "Covert", color: "red", chance: .64, baseValue: 29 },
+  { name: "SSG 08 | Dragonfire", skinKey: "ssg08-dragonfire", rarity: "Covert", color: "red", chance: .64, baseValue: 36 },
+  { name: "SCAR-20 | Cyrex", skinKey: "scar20-cyrex", rarity: "Covert", color: "red", chance: .64, baseValue: 22 }
 ];
 
 const dropCatalog = [...drops, ...extraDrops];
@@ -85,16 +104,8 @@ const conditions = [
 
 function getCaseDropPool() {
   const caseIndex = cases.findIndex(([caseItem]) => caseItem === selectedCase);
-  const seed = [...selectedCase].reduce((total, character) => total + character.charCodeAt(0), caseIndex * 17);
-  const selectedIndexes = [];
-  let cursor = seed % dropCatalog.length;
-
-  while (selectedIndexes.length < 4) {
-    if (!selectedIndexes.includes(cursor)) selectedIndexes.push(cursor);
-    cursor = (cursor + 5 + selectedIndexes.length * 3) % dropCatalog.length;
-  }
-
-  return selectedIndexes.map((index) => dropCatalog[index]);
+  const start = (caseIndex * 4) % dropCatalog.length;
+  return Array.from({ length: 4 }, (_, offset) => dropCatalog[start + offset]);
 }
 
 function getSpinnerPool() {
@@ -137,7 +148,8 @@ function chooseDrop() {
     return specialDrops[Math.floor(Math.random() * specialDrops.length)];
   }
   const caseDrops = getCaseDropPool();
-  const roll = Math.random() * 100;
+  const totalChance = caseDrops.reduce((total, drop) => total + drop.chance, 0);
+  const roll = Math.random() * totalChance;
   let total = 0;
   for (const drop of caseDrops) {
     total += drop.chance;
