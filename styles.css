@@ -461,6 +461,11 @@ h2 {
   text-transform: none;
 }
 
+.skin-preview.reel-hidden .weapon-image {
+  opacity: .35;
+  filter: grayscale(1) blur(2px);
+}
+
 .mp9-capillary .weapon-image {
   --weapon-finish: linear-gradient(90deg, #172b3a, #6ba1b4 38%, #1b2024 39%, #20252a 70%, #98b7bf);
 }
