@@ -940,6 +940,122 @@ footer {
   transform-style: preserve-3d;
 }
 
+.kilowatt-case .case-art {
+  width: min(72%, 310px);
+  aspect-ratio: 1.65;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: 17px 17px 0 rgba(0, 0, 0, .25), 0 0 55px rgba(255, 145, 24, .2);
+}
+
+.kilowatt-case .case-3d {
+  width: 230px;
+  height: 132px;
+  transform: rotateX(-10deg) rotateY(-24deg);
+}
+
+.kilowatt-case .case-face {
+  border-color: #a84212;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .08) 0 2px, transparent 2px 13px), linear-gradient(145deg, #ffad2e, #ef6817 65%, #c94c10);
+}
+
+.kilowatt-case .case-front,
+.kilowatt-case .case-back {
+  transform: translateZ(28px);
+}
+
+.kilowatt-case .case-back {
+  transform: rotateY(180deg) translateZ(28px);
+  background: linear-gradient(145deg, #f98b20, #d75313);
+}
+
+.kilowatt-case .case-left,
+.kilowatt-case .case-right {
+  width: 56px;
+  height: 132px;
+}
+
+.kilowatt-case .case-left {
+  left: -28px;
+}
+
+.kilowatt-case .case-right {
+  right: -28px;
+}
+
+.kilowatt-case .case-top,
+.kilowatt-case .case-bottom {
+  width: 230px;
+}
+
+.kilowatt-case .case-badge {
+  top: 42px;
+  left: 91px;
+  width: 52px;
+  height: 55px;
+  background: #20262b;
+  clip-path: polygon(50% 0, 100% 86%, 92% 100%, 8% 100%, 0 86%);
+}
+
+.kilowatt-case .badge-mark {
+  color: #f2f3ee;
+  background: transparent;
+  clip-path: none;
+  font-size: 17px;
+  font-family: Arial, sans-serif;
+}
+
+.kilowatt-case .case-badge span:last-child {
+  color: #e3e7e4;
+  font-size: 6px;
+}
+
+.kilowatt-case .case-badge .badge-mark::after {
+  content: "CS";
+}
+
+.kilowatt-case .case-badge .badge-mark {
+  font-size: 0;
+}
+
+.kilowatt-case .case-front::after {
+  color: rgba(75, 31, 12, .65);
+}
+
+.kilowatt-case .case-title {
+  display: none;
+}
+
+.kilowatt-case .case-stamp {
+  color: #7d2e0b;
+}
+
+.kilowatt-case .case-right::before {
+  background: repeating-linear-gradient(0deg, rgba(70, 25, 5, .3) 0 3px, transparent 3px 13px), linear-gradient(135deg, #ffb538, #d74d11 72%);
+}
+
+.kilowatt-case .case-top {
+  background: linear-gradient(90deg, #f68b1e, #ffb238 55%, #db5912);
+}
+
+.kilowatt-case .case-top::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 75px;
+  width: 82px;
+  height: 28px;
+  border: 8px solid #292d2e;
+  border-bottom-width: 5px;
+  border-radius: 7px 7px 2px 2px;
+  box-shadow: inset 0 0 0 3px #111416;
+}
+
+.kilowatt-case .case-front::before {
+  background: repeating-linear-gradient(0deg, #3b2420 0 4px, #111416 4px 7px);
+}
+
 .case-art:hover .case-3d {
   transform: rotateX(-8deg) rotateY(-18deg) translateY(-5px);
 }

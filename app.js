@@ -85,6 +85,7 @@ function updateCaseDetails() {
   buttonPrice.textContent = starterRollAvailable ? "FREE" : price.toFixed(2);
   openButton.dataset.cost = price;
   caseTitle.textContent = selectedCase.toUpperCase();
+  caseVisual.classList.toggle("kilowatt-case", selectedCase === "Kilowatt Case");
 }
 
 caseList.addEventListener("click", (event) => {
