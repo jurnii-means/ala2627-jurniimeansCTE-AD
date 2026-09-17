@@ -728,6 +728,23 @@ button {
   white-space: nowrap;
 }
 
+.sell-button {
+  flex: 0 0 auto;
+  border: 1px solid #56616b;
+  padding: 6px 8px;
+  color: #b8c4cc;
+  background: #20262d;
+  font-size: 9px;
+  letter-spacing: .08em;
+  transition: border-color .15s, color .15s, background .15s;
+}
+
+.sell-button:hover {
+  border-color: var(--accent);
+  color: #11150d;
+  background: var(--accent);
+}
+
 .odds-block {
   padding-top: 1px;
 }

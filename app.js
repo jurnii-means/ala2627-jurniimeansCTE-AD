@@ -97,7 +97,7 @@ caseList.addEventListener("click", (event) => {
 });
 
 function updateWallet() {
-  balanceElement.textContent = balance.toLocaleString();
+  balanceElement.textContent = balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   openButton.disabled = opening || balance < getCase()[1];
 }
 
@@ -172,17 +172,33 @@ function buildRoulette(winningDrop) {
 function addDrop(drop) {
   inventory.unshift(drop);
   inventory = inventory.slice(0, 5);
+  renderInventory();
+}
+
+function renderInventory() {
   emptyState.hidden = true;
   inventoryList.querySelectorAll(".inventory-item").forEach((item) => item.remove());
-  inventory.forEach((item) => {
+  emptyState.hidden = inventory.length > 0;
+  inventory.forEach((item, index) => {
     const element = document.createElement("div");
     element.className = "inventory-item";
-    const itemLabel = item.name.replace("* ", "").split(" |")[0];
-    element.innerHTML = `<span class="item-swatch ${item.color} ${item.skinKey}"><span class="weapon-image"></span></span><span class="item-info"><span class="item-name">${item.name}</span><span class="item-rarity">${item.rarity}</span><span class="item-details">${item.condition} <b>·</b> Float ${item.wear}</span></span><strong class="item-value">$${item.value}</strong>`;
+    element.innerHTML = `<span class="item-swatch ${item.color} ${item.skinKey}"><span class="weapon-image"></span></span><span class="item-info"><span class="item-name">${item.name}</span><span class="item-rarity">${item.rarity}</span><span class="item-details">${item.condition} <b>·</b> Float ${item.wear}</span></span><strong class="item-value">$${item.value}</strong><button class="sell-button" type="button" data-inventory-index="${index}">SELL</button>`;
     inventoryList.append(element);
   });
   itemCount.textContent = `${inventory.length} ${inventory.length === 1 ? "ITEM" : "ITEMS"}`;
 }
+
+inventoryList.addEventListener("click", (event) => {
+  const sellButton = event.target.closest("[data-inventory-index]");
+  if (!sellButton || opening) return;
+  const itemIndex = Number(sellButton.dataset.inventoryIndex);
+  const [item] = inventory.splice(itemIndex, 1);
+  if (!item) return;
+  balance += Number(item.value);
+  renderInventory();
+  updateWallet();
+  statusMessage.textContent = `Sold ${item.name} for $${item.value}.`;
+});
 
 openButton.addEventListener("click", () => {
   const price = getCase()[1];
