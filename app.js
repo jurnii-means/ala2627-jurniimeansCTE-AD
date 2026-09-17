@@ -9,6 +9,7 @@ const itemCount = document.querySelector("#itemCount");
 const rouletteTrack = document.querySelector(".roulette-track");
 const caseList = document.querySelector("#caseList");
 const caseName = document.querySelector("#caseName");
+const caseTitle = document.querySelector("#caseTitle");
 const caseStamp = document.querySelector("#caseStamp");
 const caseCount = document.querySelector("#caseCount");
 const casePrice = document.querySelector("#casePrice");
@@ -83,6 +84,7 @@ function updateCaseDetails() {
   casePrice.textContent = starterRollAvailable ? "FREE" : price.toFixed(2);
   buttonPrice.textContent = starterRollAvailable ? "FREE" : price.toFixed(2);
   openButton.dataset.cost = price;
+  caseTitle.textContent = selectedCase.toUpperCase();
 }
 
 caseList.addEventListener("click", (event) => {

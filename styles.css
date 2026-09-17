@@ -938,7 +938,6 @@ footer {
   height: 150px;
   transform: rotateX(-12deg) rotateY(-25deg);
   transform-style: preserve-3d;
-  transition: transform .4s ease;
 }
 
 .case-art:hover .case-3d {
@@ -1029,9 +1028,14 @@ footer {
   z-index: 2;
   right: 12px;
   bottom: 17px;
+  width: 102px;
+  max-height: 30px;
+  overflow: hidden;
   color: #c9cccb;
-  font-size: 8px;
+  font-size: 7px;
   letter-spacing: .08em;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
 .case-title b {
@@ -1127,59 +1131,7 @@ footer {
   right: 15px;
 }
 
-.case-3d {
-  animation: case-showcase 14s linear infinite;
-}
-
-.is-opening .case-3d {
-  animation: case-spin 7.6s cubic-bezier(.2, .7, .3, 1) both;
-}
-
-@keyframes case-showcase {
-  0% {
-    transform: rotateX(-12deg) rotateY(-25deg);
-  }
-
-  25% {
-    transform: rotateX(-5deg) rotateY(65deg);
-  }
-
-  50% {
-    transform: rotateX(5deg) rotateY(155deg);
-  }
-
-  75% {
-    transform: rotateX(-3deg) rotateY(245deg);
-  }
-
-  100% {
-    transform: rotateX(-12deg) rotateY(335deg);
-  }
-}
-
 .is-opening .case-art {
   display: grid;
   animation: none;
-}
-
-.is-opening .case-3d {
-  animation: case-spin 7.6s cubic-bezier(.2, .7, .3, 1) both;
-}
-
-@keyframes case-spin {
-  0% {
-    transform: rotateX(-12deg) rotateY(-25deg) scale(1);
-  }
-
-  35% {
-    transform: rotateX(10deg) rotateY(145deg) scale(1.08);
-  }
-
-  70% {
-    transform: rotateX(-8deg) rotateY(330deg) scale(1.03);
-  }
-
-  100% {
-    transform: rotateX(-12deg) rotateY(360deg) scale(1);
-  }
 }
