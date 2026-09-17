@@ -513,6 +513,45 @@ h2 {
   --weapon-finish: linear-gradient(90deg, #ef5a8a, #f7bb50 35%, #6c52df 64%, #30d4ce);
 }
 
+.mystery-knife .weapon-image,
+.mystery-gloves .weapon-image {
+  width: 48px;
+  height: 48px;
+  transform: none;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .5));
+}
+
+.mystery-knife .weapon-image::before,
+.mystery-gloves .weapon-image::before {
+  top: 3px;
+  left: 6px;
+  width: 36px;
+  height: 40px;
+  border: 2px solid #ffe9a6;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fff0a5, #d18a20 55%, #8b5512);
+  box-shadow: inset 0 0 0 3px rgba(104, 61, 8, .35), 0 0 12px rgba(232, 173, 70, .65);
+  transform: none;
+}
+
+.mystery-knife .weapon-image::after,
+.mystery-gloves .weapon-image::after {
+  top: 14px;
+  left: 15px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #fff1af;
+  border-radius: 3px;
+  background: #735018;
+  box-shadow: none;
+  transform: rotate(45deg);
+}
+
+.mystery-gloves .weapon-image::after {
+  border-radius: 50% 50% 4px 4px;
+  transform: none;
+}
+
 .skin-card-name {
   display: block;
   color: #dae4ec;

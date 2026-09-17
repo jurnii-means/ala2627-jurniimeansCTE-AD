@@ -50,9 +50,30 @@ const drops = [
 ];
 
 const specialDrops = [
-  { name: "* Butterfly Knife | Fade", skinKey: "butterfly-fade", rarity: "Rare Special Item", color: "gold", baseValue: 320 },
-  { name: "* Sport Gloves | Vice", skinKey: "sport-gloves-vice", rarity: "Rare Special Item", color: "gold", baseValue: 180 }
+  { name: "* Knife", itemType: "knife", skinKey: "mystery-knife", rarity: "Rare Special Item", color: "gold", baseValue: 320 },
+  { name: "* Gloves", itemType: "glove", skinKey: "mystery-gloves", rarity: "Rare Special Item", color: "gold", baseValue: 180 }
 ];
+
+const extraDrops = [
+  { name: "Glock-18 | Vogue", skinKey: "glock-vogue", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 8 },
+  { name: "MAC-10 | Disco Tech", skinKey: "mac10-disco-tech", rarity: "Restricted", color: "purple", chance: 15.98, baseValue: 2.8 },
+  { name: "SG 553 | Dragon Tech", skinKey: "sg553-dragon-tech", rarity: "Mil-Spec", color: "blue", chance: 79.92, baseValue: 1.1 },
+  { name: "USP-S | Printstream", skinKey: "usp-printstream", rarity: "Covert", color: "red", chance: .64, baseValue: 72 },
+  { name: "FAMAS | Meow 36", skinKey: "famas-meow-36", rarity: "Mil-Spec", color: "blue", chance: 79.92, baseValue: 1.4 },
+  { name: "AWP | Neo-Noir", skinKey: "awp-neo-noir", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 14 },
+  { name: "Galil AR | Chromatic Aberration", skinKey: "galil-chromatic-aberration", rarity: "Restricted", color: "purple", chance: 15.98, baseValue: 3.1 },
+  { name: "M4A1-S | Player Two", skinKey: "m4a1-player-two", rarity: "Covert", color: "red", chance: .64, baseValue: 68 },
+  { name: "AK-47 | Ice Coaled", skinKey: "ak47-ice-coaled", rarity: "Restricted", color: "purple", chance: 15.98, baseValue: 4.2 },
+  { name: "P90 | Freight", skinKey: "p90-freight", rarity: "Mil-Spec", color: "blue", chance: 79.92, baseValue: .9 },
+  { name: "Five-SeveN | Fairy Tale", skinKey: "fiveseven-fairy-tale", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 9 },
+  { name: "MP7 | Abyssal Apparition", skinKey: "mp7-abyssal-apparition", rarity: "Restricted", color: "purple", chance: 15.98, baseValue: 2.7 },
+  { name: "M4A4 | The Coalition", skinKey: "m4a4-the-coalition", rarity: "Covert", color: "red", chance: .64, baseValue: 55 },
+  { name: "USP-S | Ticket to Hell", skinKey: "usp-ticket-to-hell", rarity: "Mil-Spec", color: "blue", chance: 79.92, baseValue: 1.3 },
+  { name: "AK-47 | Slate", skinKey: "ak47-slate", rarity: "Restricted", color: "purple", chance: 15.98, baseValue: 3.7 },
+  { name: "M4A1-S | Emphorosaur-S", skinKey: "m4a1-emphorosaur", rarity: "Classified", color: "pink", chance: 3.2, baseValue: 11 }
+];
+
+const dropCatalog = [...drops, ...extraDrops];
 
 const conditions = [
   { name: "Factory New", chance: 2, min: 0, max: .07, multiplier: 1.4 },
@@ -62,17 +83,16 @@ const conditions = [
   { name: "Battle-Scarred", chance: 20, min: .45, max: 1, multiplier: .4 }
 ];
 
-const spinnerPool = [
-  ...drops,
-  ...specialDrops,
-  { name: "Glock-18 | Vogue", skinKey: "glock-vogue", rarity: "Classified", color: "pink" },
-  { name: "MAC-10 | Disco Tech", skinKey: "mac10-disco-tech", rarity: "Restricted", color: "purple" },
-  { name: "SG 553 | Dragon Tech", skinKey: "sg553-dragon-tech", rarity: "Mil-Spec", color: "blue" },
-  { name: "USP-S | Printstream", skinKey: "usp-printstream", rarity: "Covert", color: "red" },
-  { name: "FAMAS | Meow 36", skinKey: "famas-meow-36", rarity: "Mil-Spec", color: "blue" },
-  { name: "AWP | Neo-Noir", skinKey: "awp-neo-noir", rarity: "Classified", color: "pink" },
-  { name: "Galil AR | Chromatic Aberration", skinKey: "galil-chromatic-aberration", rarity: "Restricted", color: "purple" }
-];
+function getCaseDropPool() {
+  const caseIndex = cases.findIndex(([caseItem]) => caseItem === selectedCase);
+  const poolSize = 4;
+  const start = (caseIndex * 3) % dropCatalog.length;
+  return Array.from({ length: poolSize }, (_, offset) => dropCatalog[(start + offset) % dropCatalog.length]);
+}
+
+function getSpinnerPool() {
+  return [...getCaseDropPool(), ...specialDrops];
+}
 
 function renderCases() {
   caseCount.textContent = `${cases.length} CASES`;
@@ -109,13 +129,14 @@ function chooseDrop() {
   if (Math.random() < .0026) {
     return specialDrops[Math.floor(Math.random() * specialDrops.length)];
   }
+  const caseDrops = getCaseDropPool();
   const roll = Math.random() * 100;
   let total = 0;
-  for (const drop of drops) {
+  for (const drop of caseDrops) {
     total += drop.chance;
     if (roll <= total) return drop;
   }
-  return drops[0];
+  return caseDrops[0];
 }
 
 function createItem(drop) {
@@ -144,6 +165,7 @@ function buildRoulette(winningDrop) {
   const cardWidth = 132;
   const cardGap = 8;
   const trackPadding = 18;
+  const spinnerPool = getSpinnerPool();
   const cards = [];
 
   for (let index = 0; index < 48; index += 1) {
@@ -162,7 +184,9 @@ function buildRoulette(winningDrop) {
     preview.append(weaponImage, previewLabel);
     const skinName = document.createElement("span");
     skinName.className = "skin-card-name";
-    skinName.textContent = skin || "Special Item";
+    skinName.textContent = item.itemType
+      ? `UNKNOWN ${item.itemType === "glove" ? "GLOVES" : "KNIFE"}`
+      : skin || "Special Item";
     card.append(preview, skinName);
     cards.push(card);
   }
