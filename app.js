@@ -1,6 +1,5 @@
 const balanceElement = document.querySelector("#balance");
 const openButton = document.querySelector("#openButton");
-const earnButton = document.querySelector("#earnButton");
 const caseVisual = document.querySelector("#caseVisual");
 const statusMessage = document.querySelector("#statusMessage");
 const inventoryList = document.querySelector("#inventoryList");
@@ -16,6 +15,7 @@ const buttonPrice = document.querySelector("#buttonPrice");
 
 let balance = 0;
 let opening = false;
+let starterRollAvailable = true;
 let inventory = [];
 let selectedCase = "Fracture Case";
 
@@ -79,8 +79,8 @@ function renderCases() {
 
 function updateCaseDetails() {
   const [, price] = getCase();
-  casePrice.textContent = price.toFixed(2);
-  buttonPrice.textContent = price.toFixed(2);
+  casePrice.textContent = starterRollAvailable ? "FREE" : price.toFixed(2);
+  buttonPrice.textContent = starterRollAvailable ? "FREE" : price.toFixed(2);
   openButton.dataset.cost = price;
 }
 
@@ -98,7 +98,7 @@ caseList.addEventListener("click", (event) => {
 
 function updateWallet() {
   balanceElement.textContent = balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  openButton.disabled = opening || balance < getCase()[1];
+  openButton.disabled = opening || (!starterRollAvailable && balance < getCase()[1]);
 }
 
 function chooseDrop() {
@@ -182,7 +182,7 @@ function renderInventory() {
   inventory.forEach((item, index) => {
     const element = document.createElement("div");
     element.className = "inventory-item";
-    element.innerHTML = `<span class="item-swatch ${item.color} ${item.skinKey}"><span class="weapon-image"></span></span><span class="item-info"><span class="item-name">${item.name}</span><span class="item-rarity">${item.rarity}</span><span class="item-details">${item.condition} <b>·</b> Float ${item.wear}</span></span><strong class="item-value">$${item.value}</strong><button class="sell-button" type="button" data-inventory-index="${index}">SELL</button>`;
+    element.innerHTML = `<span class="item-swatch ${item.color} ${item.skinKey}"><span class="weapon-image"></span></span><span class="item-info"><span class="item-name">${item.name}</span><span class="item-rarity">${item.rarity}</span><span class="item-details">${item.condition} <b>·</b> Float ${item.wear}</span></span><strong class="item-value">$${item.value}</strong><button class="sell-button" type="button" data-inventory-index="${index}">SELL WEAPON</button>`;
     inventoryList.append(element);
   });
   itemCount.textContent = `${inventory.length} ${inventory.length === 1 ? "ITEM" : "ITEMS"}`;
@@ -202,10 +202,15 @@ inventoryList.addEventListener("click", (event) => {
 
 openButton.addEventListener("click", () => {
   const price = getCase()[1];
-  if (opening || balance < price) return;
+  if (opening || (!starterRollAvailable && balance < price)) return;
   const drop = chooseDrop();
   opening = true;
-  balance -= price;
+  if (starterRollAvailable) {
+    starterRollAvailable = false;
+    updateCaseDetails();
+  } else {
+    balance -= price;
+  }
   updateWallet();
   caseVisual.classList.remove("is-opening");
   void caseVisual.offsetWidth;
@@ -226,12 +231,6 @@ openButton.addEventListener("click", () => {
     statusMessage.innerHTML = `You pulled <strong class="${item.color}">${item.name}</strong> · ${item.condition}`;
     updateWallet();
   }, 8000);
-});
-
-earnButton.addEventListener("click", () => {
-  balance += 1;
-  statusMessage.textContent = "+$1 added to your balance.";
-  updateWallet();
 });
 
 updateWallet();
