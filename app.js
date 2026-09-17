@@ -102,7 +102,7 @@ function updateWallet() {
 }
 
 function chooseDrop() {
-  if (Math.random() < .1) {
+  if (Math.random() < .0026) {
     return specialDrops[Math.floor(Math.random() * specialDrops.length)];
   }
   const roll = Math.random() * 100;
