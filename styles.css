@@ -347,12 +347,12 @@ h2 {
 
 .case-model-viewer {
   position: absolute;
-  inset: 8% 6% 10%;
+  inset: 4% 10% 8%;
   z-index: 2;
   border-radius: 18px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity .2s ease;
+  transition: opacity .22s ease;
 }
 
 .has-case-model .case-model-viewer {
@@ -360,6 +360,21 @@ h2 {
 }
 
 .has-case-model .case-3d {
+  display: none;
+}
+
+.has-case-model .case-art {
+  width: min(72%, 360px);
+  aspect-ratio: 1;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  overflow: visible;
+}
+
+.has-case-model .case-art::after {
   display: none;
 }
 

@@ -330,18 +330,31 @@ function initCaseModel() {
     { path: "assets/case-model/pins.stl", material: caseMaterials[2] }
   ];
 
+  const normalizedMeshes = [];
+
   let loadedCount = 0;
   modelFiles.forEach(({ path, material }) => {
     loader.load(path, (geometry) => {
+      geometry.computeBoundingBox();
+      geometry.center();
+
       const mesh = new THREE.Mesh(geometry, material);
       mesh.rotation.x = -Math.PI / 2;
       mesh.rotation.y = Math.PI / 4;
       mesh.castShadow = true;
       mesh.receiveShadow = true;
+      normalizedMeshes.push(mesh);
       caseGroup.add(mesh);
       loadedCount += 1;
 
       if (loadedCount === modelFiles.length) {
+        const bounds = new THREE.Box3().setFromObject(caseGroup);
+        const size = new THREE.Vector3();
+        bounds.getSize(size);
+        const maxDimension = Math.max(size.x, size.y, size.z) || 1;
+        const scale = 2.75 / maxDimension;
+
+        caseGroup.scale.setScalar(scale);
         caseGroup.rotation.y = Math.PI / 8;
         caseGroup.position.y = -0.1;
         scene.add(caseGroup);
