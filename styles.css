@@ -189,44 +189,51 @@ h1 em {
 
 .case-card {
   min-width: 0;
-  min-height: 54px;
+  min-height: 58px;
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 8px 10px;
-  border: 1px solid transparent;
-  border-left: 2px solid #59636d;
-  color: #aeb9c4;
-  background: #252a30;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(123, 136, 150, .35);
+  border-left: 3px solid rgba(128, 140, 152, .9);
+  border-radius: 12px;
+  color: #b7c2ce;
+  background: linear-gradient(180deg, rgba(38, 43, 50, .96), rgba(22, 26, 31, .96));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04), 0 10px 18px -20px rgba(0, 0, 0, .85);
   font-size: 11px;
   line-height: 1.25;
   text-align: left;
-  transition: border-color .15s, background .15s, color .15s;
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease, background .16s ease, color .16s ease;
 }
 
 .case-card:hover {
-  border-color: #a75f32;
-  color: #e7f2f9;
-  background: #303238;
+  transform: translateY(-1px);
+  border-color: rgba(212, 122, 60, .8);
+  border-left-color: var(--accent);
+  color: #edf4fb;
+  background: linear-gradient(180deg, rgba(48, 52, 59, .96), rgba(28, 31, 36, .96));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 16px 26px -18px rgba(212, 122, 60, .7);
 }
 
 .case-card.is-selected {
-  border-color: var(--accent);
-  border-left-width: 3px;
+  border-color: rgba(212, 122, 60, .95);
+  border-left-width: 4px;
   color: #effaff;
-  background: #3a302a;
-  box-shadow: inset 0 0 18px rgba(212, 122, 60, .1);
+  background: linear-gradient(180deg, rgba(62, 48, 40, .98), rgba(36, 29, 25, .98));
+  box-shadow: inset 0 0 20px rgba(212, 122, 60, .12), 0 16px 26px -18px rgba(212, 122, 60, .8);
 }
 
 .case-card-icon {
-  flex: 0 0 23px;
+  flex: 0 0 25px;
   display: grid;
   place-items: center;
   height: 30px;
   color: var(--accent);
-  border: 1px solid #55748a;
-  background: #18232c;
+  border: 1px solid rgba(116, 159, 182, .7);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(17, 25, 31, .92), rgba(25, 33, 40, .92));
   font-size: 15px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .04);
 }
 
 .case-card-name {
@@ -237,7 +244,8 @@ h1 em {
   flex: 0 0 auto;
   color: #dcebf4;
   font-size: 10px;
-  font-weight: 400;
+  font-weight: 700;
+  letter-spacing: .06em;
   white-space: nowrap;
 }
 
@@ -289,8 +297,10 @@ h2 {
   display: grid;
   place-items: center;
   margin: 2.7rem 0 1.8rem;
-  background: linear-gradient(135deg, #34383c, #171a1e 60%, #282b2f);
-  border: 1px solid #374149;
+  border-radius: 20px;
+  border: 1px solid rgba(118, 136, 152, .5);
+  background: radial-gradient(circle at 50% 30%, rgba(88, 136, 182, .18), transparent 26%), radial-gradient(circle at 50% 88%, rgba(0, 0, 0, .58), transparent 42%), linear-gradient(145deg, #2d3237, #161b1f 58%, #21272d);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
 }
 
 .case-visual::before,
@@ -298,22 +308,24 @@ h2 {
   content: "";
   position: absolute;
   inset: 14px;
-  border: 1px solid rgba(214, 255, 63, .17);
+  border-radius: 16px;
+  border: 1px solid rgba(195, 216, 255, .14);
 }
 
 .case-visual::after {
   inset: 0;
   border: 0;
-  background: repeating-linear-gradient(0deg, transparent 0 5px, rgba(255, 255, 255, .018) 6px);
+  border-radius: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, 0) 30%), repeating-linear-gradient(0deg, transparent 0 5px, rgba(255, 255, 255, .018) 6px);
 }
 
 .case-glow {
   position: absolute;
-  width: 180px;
-  height: 180px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
-  background: rgba(212, 122, 60, .12);
-  filter: blur(35px);
+  background: radial-gradient(circle, rgba(212, 122, 60, .3) 0, rgba(212, 122, 60, .12) 30%, rgba(212, 122, 60, 0) 70%);
+  filter: blur(30px);
 }
 
 .case-art {
@@ -323,9 +335,10 @@ h2 {
   padding: 1.5rem 1rem;
   position: relative;
   transform: rotate(-7deg);
-  border: 2px solid #4d82a5;
+  border: 2px solid rgba(116, 171, 212, .8);
+  border-radius: 18px 18px 32px 32px;
   box-shadow: 17px 17px 0 rgba(0, 0, 0, .22), 0 0 55px rgba(74, 158, 216, .15);
-  background: linear-gradient(145deg, #334454, #151d26 75%);
+  background: linear-gradient(145deg, #314454, #161d26 75%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -334,8 +347,9 @@ h2 {
 .case-art::after {
   content: "";
   position: absolute;
-  inset: 9px;
+  inset: 10px;
   border: 1px solid rgba(102, 184, 232, .35);
+  border-radius: 12px;
 }
 
 .case-bolt {
@@ -368,7 +382,8 @@ h2 {
   bottom: 18%;
   width: 220px;
   height: 25px;
-  background: #080a0b;
+  background: rgba(8, 10, 11, .95);
+  border-radius: 50%;
   filter: blur(14px);
 }
 
