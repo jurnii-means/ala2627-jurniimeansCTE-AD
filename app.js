@@ -2,6 +2,7 @@ const balanceElement = document.querySelector("#balance");
 const openButton = document.querySelector("#openButton");
 const earnButton = document.querySelector("#earnButton");
 const caseVisual = document.querySelector("#caseVisual");
+const caseModelViewer = document.querySelector("#caseModelViewer");
 const statusMessage = document.querySelector("#statusMessage");
 const inventoryList = document.querySelector("#inventoryList");
 const emptyState = document.querySelector("#emptyState");
@@ -289,7 +290,85 @@ openButton.addEventListener("click", () => {
   }, 8000);
 });
 
+function initCaseModel() {
+  if (!caseModelViewer || !window.THREE || !window.THREE.STLLoader) return;
+
+  const container = caseModelViewer;
+  const scene = new THREE.Scene();
+  scene.background = null;
+
+  const camera = new THREE.PerspectiveCamera(32, container.clientWidth / container.clientHeight, 0.1, 1000);
+  camera.position.set(0, 0.7, 3.6);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  container.appendChild(renderer.domElement);
+
+  const hemiLight = new THREE.HemisphereLight(0xeaf5ff, 0x10151a, 1.6);
+  scene.add(hemiLight);
+
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+  dirLight.position.set(3, 5, 4);
+  scene.add(dirLight);
+
+  const loader = new THREE.STLLoader();
+  const caseMaterials = [
+    new THREE.MeshStandardMaterial({ color: 0xbabec3, metalness: 0.65, roughness: 0.35 }),
+    new THREE.MeshStandardMaterial({ color: 0x7fcae6, metalness: 0.5, roughness: 0.3 }),
+    new THREE.MeshStandardMaterial({ color: 0xf2c778, metalness: 0.8, roughness: 0.22 })
+  ];
+
+  const caseGroup = new THREE.Group();
+  const modelFiles = [
+    { path: "assets/case-model/case.stl", material: caseMaterials[0] },
+    { path: "assets/case-model/lid.stl", material: caseMaterials[1] },
+    { path: "assets/case-model/pins.stl", material: caseMaterials[2] }
+  ];
+
+  let loadedCount = 0;
+  modelFiles.forEach(({ path, material }) => {
+    loader.load(path, (geometry) => {
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.rotation.x = -Math.PI / 2;
+      mesh.rotation.y = Math.PI / 4;
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      caseGroup.add(mesh);
+      loadedCount += 1;
+
+      if (loadedCount === modelFiles.length) {
+        caseGroup.rotation.y = Math.PI / 8;
+        caseGroup.position.y = -0.1;
+        scene.add(caseGroup);
+      }
+    }, undefined, () => {
+      console.warn(`Failed to load 3D case model: ${path}`);
+    });
+  });
+
+  function animate() {
+    requestAnimationFrame(animate);
+    if (caseGroup && caseGroup.children.length) {
+      caseGroup.rotation.y += 0.008;
+      caseGroup.rotation.x = Math.sin(Date.now() * 0.001) * 0.12;
+    }
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  window.addEventListener("resize", () => {
+    if (!container) return;
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+  });
+}
+
 updateWallet();
 renderCases();
 updateCaseDetails();
 buildRoulette(drops[0]);
+initCaseModel();
