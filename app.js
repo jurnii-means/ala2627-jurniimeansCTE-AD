@@ -1,3 +1,6 @@
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+import { STLLoader } from "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/STLLoader.js";
+
 const balanceElement = document.querySelector("#balance");
 const openButton = document.querySelector("#openButton");
 const earnButton = document.querySelector("#earnButton");
@@ -291,7 +294,7 @@ openButton.addEventListener("click", () => {
 });
 
 function initCaseModel() {
-  if (!caseModelViewer || !window.THREE || !window.THREE.STLLoader) return;
+  if (!caseModelViewer) return;
 
   const container = caseModelViewer;
   const scene = new THREE.Scene();
@@ -313,7 +316,7 @@ function initCaseModel() {
   dirLight.position.set(3, 5, 4);
   scene.add(dirLight);
 
-  const loader = new THREE.STLLoader();
+  const loader = new STLLoader();
   const caseMaterials = [
     new THREE.MeshStandardMaterial({ color: 0xbabec3, metalness: 0.65, roughness: 0.35 }),
     new THREE.MeshStandardMaterial({ color: 0x7fcae6, metalness: 0.5, roughness: 0.3 }),
@@ -342,6 +345,7 @@ function initCaseModel() {
         caseGroup.rotation.y = Math.PI / 8;
         caseGroup.position.y = -0.1;
         scene.add(caseGroup);
+        caseVisual.classList.add("has-case-model");
       }
     }, undefined, () => {
       console.warn(`Failed to load 3D case model: ${path}`);

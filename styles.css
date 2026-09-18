@@ -350,7 +350,17 @@ h2 {
   inset: 8% 6% 10%;
   z-index: 2;
   border-radius: 18px;
+  opacity: 0;
   pointer-events: none;
+  transition: opacity .2s ease;
+}
+
+.has-case-model .case-model-viewer {
+  opacity: 1;
+}
+
+.has-case-model .case-3d {
+  display: none;
 }
 
 .case-model-viewer canvas {
