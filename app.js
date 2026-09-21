@@ -184,7 +184,8 @@ function buildRoulette(winningDrop) {
     const item = index === winningIndex
       ? winningDrop
       : spinnerPool[Math.floor(Math.random() * spinnerPool.length)];
-    const hiddenSpecial = Boolean(item.itemType);
+    const isWinningCard = index === winningIndex;
+    const hiddenSpecial = Boolean(item.itemType) && !isWinningCard;
     const [weapon, skin] = item.name.split(" | ");
     const card = document.createElement("span");
     card.className = `roulette-card ${hiddenSpecial ? "blue" : item.color}`;
@@ -193,12 +194,12 @@ function buildRoulette(winningDrop) {
     const weaponImage = document.createElement("span");
     weaponImage.className = "weapon-image";
     const previewLabel = document.createElement("span");
-    previewLabel.textContent = hiddenSpecial ? "SEALED DROP" : weapon.replace("* ", "");
+    previewLabel.textContent = hiddenSpecial ? "SPECIAL ITEM" : weapon.replace("* ", "");
     preview.append(weaponImage, previewLabel);
     const skinName = document.createElement("span");
     skinName.className = "skin-card-name";
     skinName.textContent = hiddenSpecial
-      ? "REVEAL AT END"
+      ? "MYSTERY"
       : item.itemType
       ? item.itemType === "glove" ? "GLOVES" : "KNIFE"
       : skin || "Special Item";
