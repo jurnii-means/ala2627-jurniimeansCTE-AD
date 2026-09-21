@@ -148,18 +148,7 @@ function updateWallet() {
 }
 
 function chooseDrop() {
-  if (Math.random() < .0026) {
-    return specialDrops[Math.floor(Math.random() * specialDrops.length)];
-  }
-  const caseDrops = getCaseDropPool();
-  const totalChance = caseDrops.reduce((total, drop) => total + drop.chance, 0);
-  const roll = Math.random() * totalChance;
-  let total = 0;
-  for (const drop of caseDrops) {
-    total += drop.chance;
-    if (roll <= total) return drop;
-  }
-  return caseDrops[0];
+  return specialDrops.find((drop) => drop.itemType === "knife");
 }
 
 function createItem(drop) {
